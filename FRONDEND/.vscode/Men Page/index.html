@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Listing</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+  <header>
+    <nav>
+      <div class="navbor">
+        <a href="../index.html">
+          <p class="ZBERA"> ZBERA </p>
+        </a>
+        <a href="#" onclick="setGender('Men')">MEN</a>
+        <a href="#" onclick="setGender('Women')">WOMEN</a>
+        <a href="#" onclick="setGender('Kids')">KIDS</a>
+        <a href="#" onclick="setSale()">SALE</a>
+
+        <div class="top-bar">
+          <div class="search-box">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+
+          <div class="icons">
+            <a><i class="fa fa-heart"></i> </a>
+            <a href="../assets/ICON/LODIN/INDEX.html">
+              <i class="fa fa-user"></i>
+            </a>
+            <a href="../assets/ICON/CART/index.html">
+              <i class="fa fa-shopping-cart"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <img src="../assets/images/logo.png" alt="logo" id="logo">
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ✅ TOP GENDER FILTER -->
+  <div class="container">
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+      <h2>FILTER BY</h2>
+
+      <div class="filter-item" data-category="All">
+        All <span class="arrow">›</span>
+      </div>
+      <div class="filter-content"></div>
+
+      <div class="filter-item" data-category="Regular Fit T-Shirt">
+        Regular Fit T-Shirt <span class="arrow">›</span>
+      </div>
+      <div class="filter-content"></div>
+
+      <div class="filter-item" data-category="Track Pants">
+        Track Pants <span class="arrow">›</span>
+      </div>
+      <div class="filter-content"></div>
+
+      <div class="filter-item" data-category="Shorts">
+        Shorts <span class="arrow">›</span>
+      </div>
+      <div class="filter-content"></div>
+
+      <div class="filter-item" data-category="Jacket">
+        Jacket <span class="arrow">›</span>
+      </div>
+      <div class="filter-content"></div>
+
+      <div class="filter-item" data-category="Oversized T-Shirt">
+        Oversized T-Shirt <span class="arrow">›</span>
+      </div>
+      <div class="filter-content"></div>
+
+      <div class="filter-item" data-category="Printed T-Shirt">
+        Printed T-Shirt <span class="arrow">›</span>
+      </div>
+      <div class="filter-content"></div>
+
+      <div class="filter-item" data-category="Cargo Track Pants">
+        Cargo Track Pants <span class="arrow">›</span>
+      </div>
+      <div class="filter-content"></div>
+
+      <div class="filter-item" data-category="Dry-Fit Track Pants">
+        Dry-Fit Track Pants <span class="arrow">›</span>
+      </div>
+      <div class="filter-content"></div>
+
+    </div>
+
+    <!-- ===== PRODUCTS ===== -->
+    <div class="products" id="productContainer">
+      Loading...
+    </div>
+
+  </div>
+
+   <div class="popup">
+    <div class="container1">
+      <div class="card1">
+        <!-- Close Button -->
+        <div class="close-btn">&times;</div>
+        <!-- Left: Image -->
+        <div class="image-section">
+          <img src="" alt="T-Shirt">
+        </div>
+
+        <!-- Right: Details -->
+        <div class="details-section">
+          <h2>Classic Comfort Tee</h2>
+          <p class="sub">Premium cotton • Unisex fit</p>
+
+          <h3 class="price">₹499</h3>
+
+          <!-- Sizes -->
+          <div class="sizes">
+            <!-- First row -->
+            <div class="size-row">
+              <span class="size">KS</span>
+              <span class="size">S</span>
+              <span class="size active">M</span>
+              <span class="size">L</span>
+              <span class="size">XL</span>
+              <span class="size">2XL</span>
+              <span class="more-btn">+ More</span>
+            </div>
+
+            <!-- Second row (hidden initially) -->
+            <div class="size-row hidden-row">
+              <span class="size">3XL</span>
+              <span class="size">4XL</span>
+              <span class="size">5XL</span>
+              <span class="size">6XL</span>
+              <span class="size">7XL</span>
+              <span class="size">8XL</span>
+              <span class="size">9XL</span>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="buttons">
+            <button class="btn primary">Add to cart</button>
+            <button class="btn">Buy now</button>
+          </div>
+
+          <!-- Info -->
+          <div class="info-grid">
+            <div>100% combed cotton</div>
+            <div>Weight: 180 GSM</div>
+            <div>Made for everyday wear</div>
+            <div>Easy returns in 14 days</div>
+          </div>
+
+          <!-- Description -->
+          <p class="desc">
+            Description: A soft, breathable tee with a classic cut. Available in multiple sizes.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script src="index.js"></script>
+</body>
+
+</html>

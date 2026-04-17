@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZBERA</title>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/index.css" />
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="navbor">
+                <a href="E:\Zebra\index.html">
+                    <p class="ZBERA"> ZBERA </p>
+                </a>
+                <a href="./Men Page/index.html" onclick="setGender('Men')">MEN</a>
+                <a href="./Men Page/index.html" onclick="setGender('Women')">WOMEN</a>
+                <a href="./Men Page/index.html" onclick="setGender('Kids')">KIDS</a>
+                <a href="#" onclick="setSale()">SALE</a>
+
+                <div class="top-bar">
+                    <div class="search-box">
+                        <i class="fa fa-search"></i>
+                        <input type="text" placeholder="Search" />
+                    </div>
+
+                    <div class="icons">
+                        <a> <i class="fa fa-heart"></i> </a>
+                        <a href="./assets/ICON/LODIN/INDEX.html">
+                            <i class="fa fa-user"></i>
+                        </a>
+                        <a href="./assets/ICON/CART/index.html">
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <img src="./assets/images/logo.png" alt="logo" id="logo">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- ------------------------------------------------------------------------- -->
+    <!-- IMAGE SLIDER -->
+
+    <div class="carousel1">
+        <div class="carousel-track">
+            <div class="carousel-slide"><img
+                    src="https://i.pinimg.com/originals/a5/cb/fe/a5cbfe3fcc1932ba364ef3cf75313415.png" alt="Slide 1"
+                    width="100%" height="85%"></div>
+            <div class="carousel-slide"><img src="https://picsum.photos/id/1016/800/400" alt="Slide 2"></div>
+            <div class="carousel-slide"><img src="https://picsum.photos/id/1018/800/400" alt="Slide 3"></div>
+        </div>
+        <button class="carousel-btn prev">&#10094;</button>
+        <button class="carousel-btn next">&#10095;</button>
+        <div class="carousel-dots"></div>
+        <a href="https://github.com" class="github-link"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+
+    <!-- ------------------------------------------------------------------------- -->
+    <!-- SMALL IMAGE SLIDER -->
+    <h1 class="heading">heading</h1>
+
+    <div class="addd" id="productContainer"></div>
+
+    <!-- ------------------------------------------------------------------------- -->
+
+    <!-- Cards -->
+    <h1 class="heading">heading</h1>
+    <div class="grid" id="cards"></div>
+
+    <!-- ------------------------------------------------------------------------- -->
+
+    <!-- Carousel Images -->
+
+    <div class="container">
+        <h2 class="title">Shop The Look</h2>
+
+        <div class="carousel-wrapper">
+            <button type="button" class="nav-btn left-btn">&#10094;</button>
+
+            <div class="carousel" id="carousel"></div>
+
+            <button type="button" class="nav-btn right-btn">&#10095;</button>
+        </div>
+
+    </div>
+
+    <!-- ------------------------------------------------------------------------- -->
+
+    <h1 class="heading">heading</h1>
+    <div class="filters3">
+        <button class="active3">All</button>
+        <button class="active3">Men</button>
+        <button class="active3">Women</button>
+        <button class="active3">Boys</button>
+        <button class="active3">Girls</button>
+    </div>
+
+    <div class="section3">
+
+        <div class="promo3">
+            <h4>Just In</h4>
+            <h1>1799</h1>
+            <p>NEW STYLES JUST<br />LANDED</p>
+            <a href="#">SHOP NOW →</a>
+        </div>
+
+        <div class="slider-wrapper3">
+            <button class="nav3 left3">&#10094;</button>
+            <div class="slider3" id="slider3"></div>
+            <button class="nav3 right3">&#10095;</button>
+        </div>
+
+    </div>
+    <!-- ---------------------------------------------------------------------------->
+    <h1 class="heading">heading</h1>
+
+    <div class="section4">
+        <div class="slider-wrapper4">
+            <button class="nav4 left4">&#10094;</button>
+            <div class="slider4" id="slider4"></div>
+            <button class="nav4 right4">&#10095;</button>
+        </div>
+
+    </div>
+
+
+    <script src="./assets/js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+<!doctype html>
+<!--
+  T-Shirt Shop — Single-file demo
+  - Open this file in a browser to preview a simple t-shirt product page with:
+    • product gallery
+    • color & size selector
+    • live preview of shirt color
+    • simple client-side cart (no backend)
+  - Edit product details, images, or styles as you like.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T‑Shirt Shop — Demo</title>
+  <style>
+    :root{--bg:#f6f7fb;--card:#fff;--muted:#6b7280;--accent:#111827}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--accent);background:var(--bg);margin:0;padding:32px}
+    .container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:480px 1fr;gap:32px}
+    .card{background:var(--card);border-radius:14px;padding:22px;box-shadow:0 6px 20px rgba(15,23,42,0.06)}
+    .gallery{display:flex;gap:10px;align-items:center}
+    .preview{width:420px;height:420px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+    .shirt{width:72%;height:72%;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;color:white}
+    .thumbs{display:flex;flex-direction:column;gap:10px}
+    .thumb{width:64px;height:64px;border-radius:8px;cursor:pointer;box-shadow:0 4px 12px rgba(2,6,23,0.06);display:flex;align-items:center;justify-content:center}
+    h1{margin:0 0 8px 0;font-size:22px}
+    .price{font-size:20px;font-weight:700;margin-top:6px}
+    .muted{color:var(--muted);font-size:14px}
+    .selectors{display:flex;gap:18px;margin-top:18px}
+    .colors{display:flex;gap:8px;align-items:center}
+    .color-swatch{width:36px;height:36px;border-radius:8px;cursor:pointer;box-shadow:0 2px 6px rgba(2,6,23,0.06);border:2px solid transparent}
+    .color-swatch.selected{outline:3px solid rgba(0,0,0,0.08);}
+    .sizes{display:flex;gap:8px}
+    .size{padding:8px 12px;border-radius:8px;border:1px solid #e6e9ef;cursor:pointer}
+    .size.selected{background:#111827;color:#fff;border-color:transparent}
+    .btn{display:inline-block;padding:12px 18px;border-radius:10px;background:#111827;color:#fff;text-decoration:none;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid #e6e9ef;color:var(--accent)}
+    .cart-btn{position:relative}
+    .cart-count{position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;border-radius:999px;padding:4px 7px;font-size:12px}
+    .features{margin-top:18px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .feature{background:#f8fafc;padding:8px;border-radius:8px;font-size:13px}
+    /* Cart modal */
+    .modal{position:fixed;right:24px;bottom:24px;width:320px;border-radius:12px;box-shadow:0 14px 40px rgba(2,6,23,0.12);overflow:hidden;background:var(--card);display:none}
+    .modal.open{display:block}
+    .modal header{padding:14px 16px;border-bottom:1px solid #eef2f7;font-weight:700}
+    .modal .items{max-height:260px;overflow:auto;padding:12px}
+    .modal .foot{padding:12px;border-top:1px solid #eef2f7;display:flex;justify-content:space-between;align-items:center}
+    @media(max-width:900px){.container{grid-template-columns:1fr;}.preview{width:100%;height:320px}.gallery{flex-direction:row}.thumbs{flex-direction:row}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="gallery">
+        <div class="thumbs">
+          <div class="thumb" data-img="white"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48'><rect width='48' height='48' fill='%23ffffff' rx='8' stroke='%23e6e9ef'/></svg>" alt="white"/></div>
+          <div class="thumb" data-img="black"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48'><rect width='48' height='48' fill='%23000000' rx='8'/></svg>" alt="black"/></div>
+          <div class="thumb" data-img="red"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48'><rect width='48' height='48' fill='%23ef4444' rx='8'/></svg>" alt="red"/></div>
+          <div class="thumb" data-img="navy"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48'><rect width='48' height='48' fill='%230f172a' rx='8'/></svg>" alt="navy"/></div>
+        </div>
+        <div class="preview" aria-hidden="false">
+          <div id="shirtPreview" class="shirt" style="background:#111827">T‑Shirt</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h1 id="productTitle">Classic Comfort Tee</h1>
+      <div class="muted">Premium cotton • Unisex fit</div>
+      <div class="price">₹499</div>
+
+      <div class="selectors">
+        <div>
+          <div class="muted">Color</div>
+          <div class="colors" id="colorOptions">
+            <div class="color-swatch" data-color="#ffffff" title="White" style="background:#ffffff;border:1px solid #e5e7eb"></div>
+            <div class="color-swatch selected" data-color="#111827" title="Black" style="background:#111827"></div>
+            <div class="color-swatch" data-color="#ef4444" title="Red" style="background:#ef4444"></div>
+            <div class="color-swatch" data-color="#0f172a" title="Navy" style="background:#0f172a"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="muted">Size</div>
+          <div class="sizes" id="sizeOptions">
+            <div class="size" data-size="S">S</div>
+            <div class="size selected" data-size="M">M</div>
+            <div class="size" data-size="L">L</div>
+            <div class="size" data-size="XL">XL</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+        <button id="addToCart" class="btn">Add to cart</button>
+        <button id="buyNow" class="btn secondary">Buy now</button>
+        <div style="flex:1"></div>
+        <button id="openCart" class="btn cart-btn">Cart <span id="cartCount" class="cart-count" style="display:none">0</span></button>
+      </div>
+
+      <div class="features">
+        <div class="feature">100% combed cotton</div>
+        <div class="feature">Weight: 180 GSM</div>
+        <div class="feature">Made for everyday wear</div>
+        <div class="feature">Easy returns in 14 days</div>
+      </div>
+
+      <div style="margin-top:18px;color:var(--muted);font-size:14px">Description: A soft, breathable tee with a classic cut. Available in multiple colors and sizes.</div>
+    </div>
+  </div>
+
+  <!-- simple cart modal -->
+  <div id="cartModal" class="modal" aria-hidden="true">
+    <header>Cart</header>
+    <div class="items" id="cartItems"></div>
+    <div class="foot">
+      <div>Total: <strong id="cartTotal">₹0</strong></div>
+      <button id="checkout" class="btn">Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    // Basic front-end logic: color/size selection, cart management
+    const shirtPreview = document.getElementById('shirtPreview');
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    const sizeButtons = document.querySelectorAll('.size');
+    const thumbs = document.querySelectorAll('.thumb');
+    const addToCartBtn = document.getElementById('addToCart');
+    const openCartBtn = document.getElementById('openCart');
+    const cartModal = document.getElementById('cartModal');
+    const cartCount = document.getElementById('cartCount');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+
+    let selectedColor = '#111827';
+    let selectedSize = 'M';
+    let cart = [];
+    const price = 499;
+
+    function updatePreview(){
+      shirtPreview.style.background = selectedColor;
+      // adjust text color for contrast
+      const c = selectedColor.replace('#','');
+      if(c.length===3){ // expand short hex
+        selectedLum = parseInt(c.split('').map(ch=>ch+ch).join(''),16)
+      }
+      // simple brightness check
+      const r = parseInt(selectedColor.substr(1,2),16);
+      const g = parseInt(selectedColor.substr(3,2),16);
+      const b = parseInt(selectedColor.substr(5,2),16);
+      const brightness = (r*299 + g*587 + b*114) / 1000;
+      shirtPreview.style.color = brightness > 140 ? '#111827' : '#ffffff';
+    }
+
+    colorSwatches.forEach(s => s.addEventListener('click', e => {
+      colorSwatches.forEach(x=>x.classList.remove('selected'));
+      s.classList.add('selected');
+      selectedColor = s.dataset.color;
+      updatePreview();
+    }));
+
+    sizeButtons.forEach(b=>b.addEventListener('click',()=>{
+      sizeButtons.forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected');
+      selectedSize = b.dataset.size;
+    }));
+
+    thumbs.forEach(t=>t.addEventListener('click',()=>{
+      const id = t.dataset.img;
+      // map to color
+      const map = {white:'#ffffff',black:'#111827',red:'#ef4444',navy:'#0f172a'};
+      const c = map[id] || '#111827';
+      selectedColor = c;
+      colorSwatches.forEach(x=>x.classList.remove('selected'));
+      document.querySelector('.color-swatch[data-color="'+c+'"]')?.classList.add('selected');
+      updatePreview();
+    }));
+
+    function renderCart(){
+      cartItemsEl.innerHTML='';
+      if(cart.length===0){
+        cartItemsEl.innerHTML = '<div style="padding:12px;color:var(--muted)">Your cart is empty.</div>';
+        cartCount.style.display='none';
+        cartTotalEl.textContent = '₹0';
+        return;
+      }
+      cartCount.style.display='inline-block';
+      cartCount.textContent = cart.reduce((s,i)=>s+i.qty,0);
+      let total = 0;
+      cart.forEach((item,idx)=>{
+        total += item.qty * price;
+        const row = document.createElement('div');
+        row.style.display='flex';row.style.justifyContent='space-between';row.style.alignItems='center';row.style.padding='8px 0';
+        row.innerHTML = `<div><div style=\"font-weight:700\">${item.title}</div><div style=\"font-size:13px;color:var(--muted)\">${item.size} • ${item.colorName || item.color}</div></div><div style=\"text-align:right\">₹${price * item.qty}<div style=\"margin-top:6px\"><button data-idx=\"${idx}\" class=\"btn secondary\" style=\"padding:6px 8px;font-size:12px\">Remove</button></div></div>`;
+        cartItemsEl.appendChild(row);
+      });
+      cartTotalEl.textContent = '₹' + total;
+
+      // attach remove handlers
+      cartItemsEl.querySelectorAll('button[data-idx]').forEach(btn=>{
+        btn.addEventListener('click',e=>{
+          const i = Number(e.currentTarget.dataset.idx);
+          cart.splice(i,1);
+          renderCart();
+        })
+      })
+    }
+
+    addToCartBtn.addEventListener('click',()=>{
+      const colorName = (selectedColor === '#111827') ? 'Black' : (selectedColor === '#ffffff' ? 'White' : (selectedColor === '#ef4444'? 'Red':'Navy'));
+      const newItem = {title:document.getElementById('productTitle').textContent, size:selectedSize, color:selectedColor, colorName, qty:1};
+      cart.push(newItem);
+      renderCart();
+      cartModal.classList.add('open');
+      cartModal.setAttribute('aria-hidden','false');
+    });
+
+    openCartBtn.addEventListener('click',()=>{
+      cartModal.classList.toggle('open');
+      const hidden = cartModal.getAttribute('aria-hidden') === 'true';
+      cartModal.setAttribute('aria-hidden', String(!hidden));
+      renderCart();
+    });
+
+    document.getElementById('checkout').addEventListener('click',()=>{
+      if(cart.length===0) return alert('Cart is empty');
+      alert('Checkout demo — this is a static demo.');
+    });
+
+    // initial
+    updatePreview();
+    renderCart();
+  </script>
+</body>
+</html>
